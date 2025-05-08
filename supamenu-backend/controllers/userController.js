@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModel.js");
+const User = require("../models/user.js");
 const blacklist = new Set();
 
 // signup controller
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
     const token = jwt.sign(
       { id: newUser._id, email: newUser.email },
       process.env.JWT_SECRET,
-      { expiresIn: "10m" }
+      { expiresIn: "30m" }
     );
     res.status(201).json({
       message: "User created successfully",
@@ -76,7 +76,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "10m" }
+      { expiresIn: "30m" }
     );
     res.status(200).json({
       message: "Login successful",

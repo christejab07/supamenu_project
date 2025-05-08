@@ -1,11 +1,14 @@
-const jwt = require ('jsonwebtoken');
-const {blacklist} = require('../controllers/userController.js');
+const jwt = require("jsonwebtoken");
+const { blacklist } = require("../controllers/userController.js");
+const dotenv = require("dotenv");
+
+dotenv.config();
 /**
  * Middleware to authenticate and verify the JWT token.
  * Ensures that the token is valid and not blacklisted.
  */
 const authenticateToken = (req, res, next) => {
-  const token = req.header("Authorization"); // Extract the token from the Authorization header
+  const token = req.header["authorization"]?.split(" ")[1]; // Extract the token from the Authorization header
 
   if (!token) {
     return res.status(401).json({ error: "Access denied. No token provided." });
@@ -13,7 +16,9 @@ const authenticateToken = (req, res, next) => {
 
   // Check if the token is in the blacklist
   if (blacklist.has(token)) {
-    return res.status(403).json({ error: "The token you provided has already been used." });
+    return res
+      .status(403)
+      .json({ error: "The token you provided has already been used." });
   }
 
   try {

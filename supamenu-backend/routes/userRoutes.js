@@ -6,9 +6,10 @@ const {
   getDashboard,
   logout,
   requestPasswordReset,
-  resetPassword
+  resetPassword,
 } = require("../controllers/userController.js");
-const {authenticateToken} = require("../middleware/authMiddleware.js");
+
+const { authenticateToken } = require("../middleware/authMiddleware.js");
 const router = express.Router();
 
 router.get("/", getAllUsers);
